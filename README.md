@@ -1,4 +1,4 @@
-# kwang-bungae-FE
+# kwang-bungae-FE 컨벤션규칙
 
 * Fix - 버그 수정
 * Feature - 새로운 기능 추가
