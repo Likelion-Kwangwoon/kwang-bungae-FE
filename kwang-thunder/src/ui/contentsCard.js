@@ -1,13 +1,14 @@
 import React from "react";
-import "../css/contentsCard.css";
+import classes from "../css/contentsCard.module.css";
 
 function contentsCard(props) {
   return (
-    <div>
+    <div className={classes.btnFloat}>
       <a
-        href=""
+        href="#x"
         title="Button border blue/green"
         className="button btnFloat btnBlueGreen"
+        style={{ textAlign: "center" }}
       >
         {props.content}
       </a>
