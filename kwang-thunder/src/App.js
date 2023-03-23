@@ -7,6 +7,7 @@ import PostPage from "./pages/postPage/postPage";
 import WritingPage from "./pages/writing/writingPage";
 import RegisterPage from "./pages/register/registerPage";
 import MyPage from "./pages/mypage/myPage";
+
 function App() {
   return (
     <div className="App">

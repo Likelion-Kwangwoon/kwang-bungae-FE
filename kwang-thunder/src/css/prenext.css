@@ -1,0 +1,31 @@
+
+body {
+    overflow:scroll;
+}
+
+.container{
+    position: relative;
+}
+
+.pagination {
+    display: inline-block;
+    }
+
+    .pagination a {
+        position:relative;
+        width:100%;
+        bottom:0;
+        color: rgb(84, 26, 245);
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 40px solidrgb(82, 32, 32);
+        border-radius: 100%;
+        margin:10px;
+    }
+    
+    .pagination a:hover:not(.active) {
+        background-color: #ecc4c4;
+    }
+
+    

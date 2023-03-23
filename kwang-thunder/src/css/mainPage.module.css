@@ -1,0 +1,33 @@
+.contents_section {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.contents_fields{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+  margin-bottom: 10px;
+}
+
+.contents {
+  display: block;
+
+} 
+
+.contents_search{
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+
+/*메인페이지에서 해야할 것들*/
+
+/*1. 카드 내용들을 api로 불러온다.*/
+/*2. 불러온 내용들을 map함수를 써서 불러올 내용이 없을 때까지 불러온다. */
+/*3. 만약 포스트가  많다면,  페이지에 넘어가서 뜨도록 처리한다.*/
+/*4. 그 페이지를 넘어갈 수 있도록 기능을 만든다. */
+/*5. 로그인페이지가 완성 된다면, 로그인여부에 따라 버튼을 로그인/로그아웃 처리한다. */
