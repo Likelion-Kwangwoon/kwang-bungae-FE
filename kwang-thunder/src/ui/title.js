@@ -6,14 +6,14 @@ import classes from "../css/title.module.css";
 
 function Title() {
   return (
-    <>
+    <div className={classes.title}>
       <img
         className={classes.titleImage}
         alt="lightning_logo"
         src={lightning}
       />
       <Today />
-    </>
+    </div>
   );
 }
 

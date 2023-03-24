@@ -33,3 +33,5 @@ const Modal = (props) => {
 };
 
 export default Modal;
+
+/* 여기는 따로 손봐야 해서 우선 보류용 */

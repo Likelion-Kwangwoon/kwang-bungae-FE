@@ -1,11 +1,11 @@
 import React from "react";
-import Modal from "../../ui/Modal";
+
 import Card from "../../ui/card";
 import Input from "../../input/input";
 
 function loginPage() {
   return (
-    <Modal>
+    <Card>
       <form>
         <Input />
         <Input />
@@ -13,7 +13,7 @@ function loginPage() {
           <button></button>
         </div>
       </form>
-    </Modal>
+    </Card>
   );
 }
 

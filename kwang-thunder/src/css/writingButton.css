@@ -1,0 +1,9 @@
+.topBtn_wrap {
+    position: sticky;
+    bottom: 170px;
+    float: right;
+  }
+  .topBtn {
+    font-size: 3.8rem;
+    color: #ffc949 !important;
+  }

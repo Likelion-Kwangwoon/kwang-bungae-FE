@@ -6,6 +6,7 @@ import Search from "../../ui/search";
 import MainCard from "../../ui/mainCard";
 import Prenext from "../../ui/prenext";
 import classes from "../../css/mainPage.module.css";
+import WritingButton from "../../ui/writingButton";
 
 function mainPage() {
   return (
@@ -13,21 +14,26 @@ function mainPage() {
       <Card>
         <Title />
       </Card>
-      <Card className={classes.contents_section}>
-        <div className={classes.contents_fields}>
-          <ContentsCard content="공부" />
-          <ContentsCard content="운동" />
-          <ContentsCard content="밥" />
-          <ContentsCard content="기타" />
+      <Card className={classes.filters_fields}>
+        <ContentsCard content="공부" />
+        <ContentsCard content="운동" />
+        <ContentsCard content="밥" />
+        <ContentsCard content="기타" />
 
-          <Search />
-        </div>
+        <Search />
+      </Card>
+      <Card className={classes.contents_fields}>
         <div className={classes.contents_search}></div>
         <div className={classes.contents}>
           <MainCard />
+          <MainCard />
+          <MainCard />
         </div>
-        <Prenext />
+        <div className={classes.preNext}>
+          <Prenext />
+        </div>
       </Card>
+      <WritingButton />
     </>
   );
 }

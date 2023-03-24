@@ -5,6 +5,8 @@ body {
 
 .container{
     position: relative;
+    border-top: 1px solid gray;
+    width: 100%;
 }
 
 .pagination {
@@ -20,12 +22,17 @@ body {
         text-decoration: none;
         transition: background-color .3s;
         border: 40px solidrgb(82, 32, 32);
-        border-radius: 100%;
+        border-radius: 50%;
         margin:10px;
     }
     
-    .pagination a:hover:not(.active) {
-        background-color: #ecc4c4;
+    .pagination a:hover{
+        transform: scale(1.2);
+        color: red;
+        font-weight: bold;
     }
+    /* .pagination a:hover:not(.active) {
+        background-color: #ecc4c49a;
+    } */
 
     
