@@ -1,36 +1,64 @@
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import Card from "react-bootstrap/Card";
+import axios from "axios";
 
-const Dummy = [
-  { title: "카공할 사람!!", subTitle: "3월 25일 19시", type: "공부" },
-  { title: "밥 먹을 사람!!", subTitle: "3월 27일 11시", type: "밥" },
-  { title: "운동할 사람!!", subTitle: "3월 28일 17시", type: "운동" },
-];
+function MainCard(props) {
+  const [cards, setCards] = useState([]);
 
-const postsList = Dummy.map((post) => (
-  <Card style={{ width: "18rem", height: "18rem", margin: "1rem" }}>
-    <Card.Body>
-      <Card.Title>{post.title}</Card.Title>
-      <Card.Subtitle className="mb-2 text-muted">{post.subTitle}</Card.Subtitle>
-      <button>#{post.type}</button>
-    </Card.Body>
-  </Card>
-));
+  useEffect(() => {
+    const getCards = async () => {
+      try {
+        const cardList = await axios
+          .get(
+            "https://1c163030-febb-40eb-ad08-95b9a0693d06.mock.pstmn.io/post/list/"
+          )
+          .then(function (response) {
+            setCards(response.data);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getCards();
+  }, []);
 
-function mainCard() {
-  //mainpage에서 보이는 포스트들
-  return <>{postsList}</>;
+  return (
+    <>
+      {cards &&
+        cards
+          .filter(
+            (item) => props.category === "all" || item.type === props.category
+          )
+          .map((card) => {
+            return (
+              <Card
+                style={{
+                  width: "18rem",
+                  height: "18rem",
+                  margin: "1rem",
+                  boxShadow: "0 1px 8px rgba(0, 0, 0, 0.25)",
+                }}
+                key={card.postId}
+              >
+                <Card.Body>
+                  <img src={`{card.trasitional.url}`} />
+                  <Card.Title>{card.title}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {card.content}
+                  </Card.Subtitle>
+                  <Card.Subtitle>기간: {card.dday}까지</Card.Subtitle>
+                  <div style={{ marginTop: "10px" }}>
+                    <button style={{ marginRight: "10px" }}>
+                      #{card.type}
+                    </button>
+                    <button>모집 인원: {card.people}</button>
+                  </div>
+                </Card.Body>
+              </Card>
+            );
+          })}
+    </>
+  );
 }
 
-/* <Card style={{ width: "18rem", height: "18rem", margin: "15px" }}>
-      <Card.Body>
-        <Card.Title>카공할사람!!</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">3월 25일 19시</Card.Subtitle>
-        {/* 백엔드에서 데이터 가져오기 */
-
-//   <Card.Text>카공할사람 있나요?! 내일 저녁 7시!</Card.Text>
-//   <button></button>
-// </Card.Body>
-// </Card> */}
-
-export default mainCard;
+export default MainCard;

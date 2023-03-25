@@ -6,6 +6,7 @@ function contentsCard(props) {
     <div className={classes.btnFloat}>
       <a
         href="#x"
+        onClick={props.onClick}
         title="Button border blue/green"
         className="button btnFloat btnBlueGreen"
         style={{ textAlign: "center" }}
