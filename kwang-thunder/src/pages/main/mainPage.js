@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../ui/card";
 import Title from "../../ui/title";
 import ContentsCard from "../../ui/contentsCard";
@@ -6,49 +6,64 @@ import Search from "../../ui/search";
 import MainCard from "../../ui/mainCard";
 import Prenext from "../../ui/prenext";
 import classes from "../../css/mainPage.module.css";
+import Talk from "../../images/Talk.png";
 import WritingButton from "../../ui/writingButton";
-
+import Welcome from "../../ui/welcome";
 function MainPage() {
-  // const [category, setCategory] = useState("all");
-  // const clickCategory = (target) => {
-  //   switch (target) {
-  //     case "all":
-  //       return setCategory("all");
-  //     case "study":
-  //       return setCategory("study");
-  //     case "exercise":
-  //       return setCategory("exercise");
-  //     case "meal":
-  //       return setCategory("meal");
-  //     case "game":
-  //       return setCategory("game");
-  //     case "culture":
-  //       return setCategory("culture");
-  //     case "etc":
-  //       return setCategory("etc");
-  //   }
-  //   console.log(category);
-  // };
+  const [category, setCategory] = useState("all");
+  const [isAuth, setAuth] = useState(false);
+  const REST_API_KEY = "7c749d6829ffb31f2015c71640b42eb4";
+  const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
+  const categoryChangeHandler = (newProp) => {
+    setCategory(newProp);
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token") != null) {
+      setAuth(true);
+    } else setAuth(false);
+  }, []);
+
+  const logoutHandler = () => {
+    window.localStorage.clear();
+    window.localStorage.removeItem("token");
+    setAuth(false);
+  };
   return (
     <>
-      <Card>
+      <Card className={classes.title}>
         <Title />
+        {!isAuth && (
+          <a className={classes.kakaologin} href={KAKAO_AUTH_URL}>
+            <img src={Talk} />
+            카카오 계정으로 로그인
+          </a>
+        )}
+        {isAuth && (
+          <a
+            className={classes.kakaologout}
+            href={KAKAO_AUTH_URL}
+            onClick={logoutHandler}
+          >
+            로그아웃
+          </a>
+        )}
       </Card>
       <Card className={classes.filters_fields}>
-        <ContentsCard content="전체보기" />
-        <ContentsCard content="공부" />
-        <ContentsCard content="운동" />
-        <ContentsCard content="밥" />
-        <ContentsCard content="게임" />
-        <ContentsCard content="문화생활" />
-        <ContentsCard content="기타" />
+        <ContentsCard onClick={categoryChangeHandler} content="전체보기" />
+        <ContentsCard onClick={categoryChangeHandler} content="공부" />
+        <ContentsCard onClick={categoryChangeHandler} content="운동" />
+        <ContentsCard onClick={categoryChangeHandler} content="밥" />
+        <ContentsCard onClick={categoryChangeHandler} content="게임" />
+        <ContentsCard onClick={categoryChangeHandler} content="문화생활" />
+        <ContentsCard onClick={categoryChangeHandler} content="기타" />
         <Search />
       </Card>
       <Card className={classes.contents_fields}>
         <div className={classes.contents_search}></div>
         <div className={classes.contents}>
-          <MainCard category="all" />
+          <MainCard category={category} />
         </div>
         <div className={classes.preNext}>
           <Prenext />
