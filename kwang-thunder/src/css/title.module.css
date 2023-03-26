@@ -1,5 +1,9 @@
+.title{
+  display: flex;
+  flex-direction: column;
+}
+
 .titleImage{
   width: 20rem;
   height: 8rem;
 }
-

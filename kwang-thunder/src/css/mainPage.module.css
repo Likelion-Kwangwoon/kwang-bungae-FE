@@ -1,28 +1,101 @@
-.contents_section {
-  display:flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
+.title{
+  display: flex;
+  flex-direction: column;
 }
 
-.contents_fields{
+.filters_fields{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding-bottom: 10px;
   border-bottom: 1px solid gray;
   margin-bottom: 10px;
+  justify-content: center;
+}
+
+.contents_fields{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -8px;
 }
 
 .contents {
-  display: block;
-
-} 
+  display: flex;
+  flex-wrap: wrap;
+  width: 1280px;
+}
 
 .contents_search{
   display: flex;
   flex-wrap: wrap-reverse;
 }
+
+.preNext{
+  width: 100%;
+}
+
+.writePost{
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: ivory;
+  font-size: 5rem;
+  padding: 0;
+}
+
+.kakaologin{
+  width: 20rem;
+  height:2rem;
+  border-radius: 5px;
+  border: 1px solid #f4f4f4;
+  font-size:1.2rem;
+  padding-top: 0.2rem;
+  background-color:#fff115; 
+  box-shadow: 0 2px 1px 0 rgba(155, 155, 155, 0.5);
+  text-decoration: none;
+  color:#702732;
+  text-align: center;
+  font-weight: bold;
+  cursor:pointer;
+}
+
+.kakaologin img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.3rem;
+}
+
+.kakaologin:hover{
+  text-decoration: none;
+  color: #702732;
+}
+
+.kakaologout{
+  width: 10rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: 1px solid #f4f4f4;
+  font-size:1.2rem;
+  padding-top: 0.2rem;
+  background-color:#fff115; 
+  box-shadow: 0 2px 1px 0 rgba(155, 155, 155, 0.5);
+  text-decoration: none;
+  color:#702732;
+  text-align: center;
+  font-weight: bold;
+  cursor:pointer;
+}
+
+.kakaologout:hover{
+  text-decoration: none;
+  color: #702732;
+}
+
+@media screen and (max-width: 820px) {.contents {width: 320px;}}
+@media screen and (min-width: 821px) and (max-width: 1220px) {.contents {width: 640px;}}
+@media screen and (min-width: 1221px) and (max-width: 1620px) {.contents {width: 960px;}}
+@media screen and (min-width: 1621px) {.contents {width: 1280px;}}
 
 /*메인페이지에서 해야할 것들*/
 
