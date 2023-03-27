@@ -1,0 +1,21 @@
+.topBtn_wrap {
+  position: sticky;
+  bottom: 3vw;
+  left: 95vw;
+}
+
+.topBtn {
+  width: 5rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  background-image: linear-gradient(to right, #f5ce62, #e85a19);
+  box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+}
+
+.topBtn:hover{
+  background-size: 150% 150%;
+  transition: all 1s ease-in-out;
+}

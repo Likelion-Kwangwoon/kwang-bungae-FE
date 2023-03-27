@@ -8,7 +8,7 @@ import Prenext from "../../ui/prenext";
 import classes from "../../css/mainPage.module.css";
 import Talk from "../../images/Talk.png";
 import WritingButton from "../../ui/writingButton";
-import Welcome from "../../ui/welcome";
+
 function MainPage() {
   const [category, setCategory] = useState("all");
   const [isAuth, setAuth] = useState(false);
@@ -19,6 +19,7 @@ function MainPage() {
   const categoryChangeHandler = (newProp) => {
     setCategory(newProp);
   };
+
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
       setAuth(true);
@@ -29,7 +30,24 @@ function MainPage() {
     window.localStorage.clear();
     window.localStorage.removeItem("token");
     setAuth(false);
+    if (!window.Kakao.Auth.getAccessToken()) {
+      console.log("Not logged in.");
+      return;
+    }
+    //로그아웃 함수 호출 전 토큰이 있는지 확인해 보는 소스코드
+    console.log("로그아웃 전 토큰:", window.Kakao.Auth.getAccessToken());
+    window.Kakao.Auth.logout()
+      .then((response) => {
+        console.log(response);
+        console.log(
+          "logout ok access token -> " + window.Kakao.Auth.getAccessToken()
+        );
+      })
+      .catch(function () {
+        alert("Not logged in");
+      });
   };
+
   return (
     <>
       <Card className={classes.title}>
@@ -69,6 +87,56 @@ function MainPage() {
           <Prenext />
         </div>
       </Card>
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      <Card />
       <WritingButton />
     </>
   );
