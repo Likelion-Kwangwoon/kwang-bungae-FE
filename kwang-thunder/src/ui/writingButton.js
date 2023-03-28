@@ -1,20 +1,21 @@
 import React from "react";
-import styles from "../css/writingButton.css";
+import styles from "../css/writingButton.module.css";
 
 function writingButton() {
   const handleScroll = () => {
-    if (!window.scrollY) return;
+    // if (!window.scrollY) return;
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: "smooth",
+    // });
+    window.location.replace("/writing");
   };
 
   return (
     <div className={styles.topBtn_wrap}>
       <button className={styles.topBtn} onClick={handleScroll}>
-        <span>글작성</span>
+        글작성
       </button>
     </div>
   );
