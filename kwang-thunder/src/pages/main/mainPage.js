@@ -8,14 +8,32 @@ import Prenext from "../../ui/prenext";
 import classes from "../../css/mainPage.module.css";
 import Talk from "../../images/Talk.png";
 import WritingButton from "../../ui/writingButton";
+import Paging from "../paging/paging";
 
 function MainPage() {
+  //   const [items,setItems]=useState([]); => 리스트에 잇는 넘들
+  //   const [count,setCount]=useState([]); =>총개수
+  //   const [currentpage,setCurrentpage] = useState([1]); =>지금 페이지
+  //   const [postPerPage] = useState(16); => 페이지에 나타낼 놈들
+
+  //   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
+  //   const [indexOfFirsttPost, setIndexOfFirstPost] = useState(0);
+  //   const [currentPosts, setCurrentPosts] = useState(0);
+  //   React.useEffect(() => {
+  //   setCount(items.length);
+  //   setIndexOfLastPost(currentpage * postPerPage);
+  //   setIndexOfFirstPost(indexOfLastPost - postPerPage);
+  //   setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+  // }, [currentpage, indexOfFirstPost, indexOfLastPost, items, postPerPage]);
+  // const setPage = (e) => {
+  //   setCurrentpage(e);
+  // };
+
   const [category, setCategory] = useState("all");
   const [isAuth, setAuth] = useState(false);
   const REST_API_KEY = "7c749d6829ffb31f2015c71640b42eb4";
   const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
   const categoryChangeHandler = (newProp) => {
     setCategory(newProp);
   };
@@ -83,61 +101,9 @@ function MainPage() {
         <div className={classes.contents}>
           <MainCard category={category} />
         </div>
-        <div className={classes.preNext}>
-          <Prenext />
-        </div>
+        <WritingButton />
+        <Paging />
       </Card>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <WritingButton />
     </>
   );
 }
