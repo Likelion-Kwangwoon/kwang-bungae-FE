@@ -15,10 +15,10 @@ function contentsCard(props) {
         props.onClick("exercise");
         break;
       case "밥":
-        props.onClick("food"); // food는 테스트용, 원래는 meal
+        props.onClick("meal"); // food는 테스트용, 원래는 meal
         break;
       case "게임":
-        props.onClick("play"); // play는 테스트용, 원래는 game
+        props.onClick("game"); // play는 테스트용, 원래는 game
         break;
       case "문화생활":
         props.onClick("culture");
