@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import "./App.css";
 import Auth from "./Auth";
 import { Routes, Route } from "react-router";
@@ -18,7 +17,7 @@ function App() {
           <Route path="writing" element={<WritingPage />} />
           <Route path="/oauth/kakao/callback" element={<Auth />} />
           <Route path="mypage" element={<MyPage />} />
-          <Route path="post" element={<PostPage />} />
+          <Route path="post/:postId" element={<PostPage />} />
         </Routes>
       </div>
     </>
