@@ -29,7 +29,7 @@ const Auth = () => {
       function sendToken() {
         axios
           .get(
-            "https://1c163030-febb-40eb-ad08-95b9a0693d06.mock.pstmn.io/user/auth/?code=ABCDEFG",
+            "https:aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/user/auth?code=ABFASDASDASD",
             { code: { code } }
           )
           .then((response) => {

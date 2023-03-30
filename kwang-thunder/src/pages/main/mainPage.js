@@ -44,8 +44,10 @@ function MainPage() {
   }, []);
 
   const logoutHandler = () => {
-    window.localStorage.clear();
+    // window.localStorage.clear();
+    console.log("test: ", window.localStorage.getItem("token"));
     window.localStorage.removeItem("token");
+    console.log("test2: ", window.localStorage.getItem("token"));
     setAuth(false);
     if (!window.Kakao.Auth.getAccessToken()) {
       console.log("Not logged in.");
@@ -76,11 +78,7 @@ function MainPage() {
           </a>
         )}
         {isAuth && (
-          <a
-            className={classes.kakaologout}
-            href={KAKAO_AUTH_URL}
-            onClick={logoutHandler}
-          >
+          <a className={classes.kakaologout} href={`/`} onClick={logoutHandler}>
             로그아웃
           </a>
         )}
