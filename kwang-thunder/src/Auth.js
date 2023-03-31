@@ -39,6 +39,8 @@ const Auth = () => {
               "nickname",
               response.data.user.nickname
             );
+            // window.localStorage.setItem("primaryKey",response.data.memberId);
+            window.localStorage.setItem("primaryKey", "abc");
             navigate(`/`);
           })
           .catch((error) => {

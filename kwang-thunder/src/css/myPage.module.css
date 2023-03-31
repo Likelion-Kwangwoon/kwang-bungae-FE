@@ -1,0 +1,38 @@
+.section{
+  display: flex;
+  flex-direction: column;
+}
+
+.myPosts{
+  width: 75vw;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.myPostContents{
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  height: 10vw;
+  background-color: gray;
+  border-bottom: 2px solid gray;
+  margin-bottom: 1rem;
+}
+
+.myComments{
+  width: 75vw;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top: 2px solid gray;
+  padding-top: 2rem;
+}
+
+.myCommentContents{
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  height: 10vw;
+  background-color: gray;
+  border-bottom: 2px solid gray;
+  margin-bottom: 2rem;
+}
