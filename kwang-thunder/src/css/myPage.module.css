@@ -13,26 +13,32 @@
   display: flex;
   flex-direction: column;
   width: 75vw;
-  height: 10vw;
-  background-color: gray;
-  border-bottom: 2px solid gray;
+  height: auto;
+  background-color: rgb(255, 208, 208);
   margin-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 .myComments{
   width: 75vw;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border-top: 2px solid gray;
+  border-top: 2px solid rgb(0, 0, 0);
   padding-top: 2rem;
-}
+} 
 
 .myCommentContents{
   display: flex;
   flex-direction: column;
   width: 75vw;
-  height: 10vw;
-  background-color: gray;
-  border-bottom: 2px solid gray;
+  height: auto;
+  background-color: rgb(255, 208, 208);
+  /* border-bottom: 2px solid rgb(255, 255, 255); */
   margin-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+li {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }

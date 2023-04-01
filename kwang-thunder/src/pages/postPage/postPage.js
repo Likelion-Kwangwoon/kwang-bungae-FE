@@ -4,7 +4,7 @@ import Card from "../../ui/card";
 import classes from "../../css/postpage.module.css";
 import swal from "sweetalert2";
 import Title from "../../ui/title";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 function PostPage() {
   const Token = "token";
   const navigate = useNavigate();
