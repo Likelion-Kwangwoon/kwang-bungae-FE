@@ -85,6 +85,7 @@
   text-align: center;
   font-weight: bold;
   cursor:pointer;
+  margin-right: 3rem;
 }
 
 .kakaologout:hover{
@@ -92,10 +93,37 @@
   color: #702732;
 }
 
+.mypage{
+  width: 10rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: 1px solid #fffefe;
+  font-size:1.2rem;
+  padding-top: 0.2rem;
+  background-color:rgb(255, 255, 255); 
+  box-shadow: 0 2px 1px 0 rgba(155, 155, 155, 0.5);
+  text-decoration: none;
+  color:rgb(0, 0, 0);
+  text-align: center;
+  font-weight: bold;
+  cursor:pointer;
+  margin-right: 3rem;
+
+}
+
+.statemanage{
+  display: flex;
+  flex-wrap: wrap-reverse; /*wrap은 데이터가 넘쳐서 다음 줄로 넘어갈 때 주는 속성이에요!*/
+}
+
 @media screen and (max-width: 820px) {.contents {width: 320px;}}
 @media screen and (min-width: 821px) and (max-width: 1220px) {.contents {width: 640px;}}
+@media screen and (min-width: 1221px) {.contents {width: 960px;}}
+
+/* @media screen and (max-width: 820px) {.contents {width: 320px;}}
+@media screen and (min-width: 821px) and (max-width: 1220px) {.contents {width: 640px;}}
 @media screen and (min-width: 1221px) and (max-width: 1620px) {.contents {width: 960px;}}
-@media screen and (min-width: 1621px) {.contents {width: 1280px;}}
+@media screen and (min-width: 1621px) {.contents {width: 1280px;}} - 한 줄에 4개씩 띄우기*/
 
 /*메인페이지에서 해야할 것들*/
 

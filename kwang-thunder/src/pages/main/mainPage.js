@@ -10,24 +10,6 @@ import WritingButton from "../../ui/writingButton";
 import Paging from "../paging/paging";
 
 function MainPage() {
-  //   const [items,setItems]=useState([]); => 리스트에 잇는 넘들
-  //   const [count,setCount]=useState([]); =>총개수
-  //   const [currentpage,setCurrentpage] = useState([1]); =>지금 페이지
-  //   const [postPerPage] = useState(16); => 페이지에 나타낼 놈들
-
-  //   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
-  //   const [indexOfFirsttPost, setIndexOfFirstPost] = useState(0);
-  //   const [currentPosts, setCurrentPosts] = useState(0);
-  //   React.useEffect(() => {
-  //   setCount(items.length);
-  //   setIndexOfLastPost(currentpage * postPerPage);
-  //   setIndexOfFirstPost(indexOfLastPost - postPerPage);
-  //   setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
-  // }, [currentpage, indexOfFirstPost, indexOfLastPost, items, postPerPage]);
-  // const setPage = (e) => {
-  //   setCurrentpage(e);
-  // };
-
   const [category, setCategory] = useState("all");
   const [isAuth, setAuth] = useState(false);
   const REST_API_KEY = "7c749d6829ffb31f2015c71640b42eb4";
@@ -45,24 +27,11 @@ function MainPage() {
 
   const logoutHandler = () => {
     window.localStorage.clear();
-    window.localStorage.removeItem("token");
     setAuth(false);
     if (!window.Kakao.Auth.getAccessToken()) {
       console.log("Not logged in.");
       return;
     }
-    //로그아웃 함수 호출 전 토큰이 있는지 확인해 보는 소스코드
-    // console.log("로그아웃 전 토큰:", window.Kakao.Auth.getAccessToken());
-    // window.Kakao.Auth.logout()
-    //   .then((response) => {
-    //     console.log(response);
-    //     console.log(
-    //       "logout ok access token -> " + window.Kakao.Auth.getAccessToken()
-    //     );
-    //   })
-    //   .catch(function () {
-    //     alert("Not logged in");
-    //   });
   };
 
   return (
@@ -76,13 +45,24 @@ function MainPage() {
           </a>
         )}
         {isAuth && (
-          <a
-            className={classes.kakaologout}
-            href={KAKAO_AUTH_URL}
-            onClick={logoutHandler}
-          >
-            로그아웃
-          </a>
+          <div className={classes.statemanage}>
+            <a
+              className={classes.kakaologout}
+              href={`/`}
+              onClick={logoutHandler}
+            >
+              로그아웃
+            </a>
+            <button
+              className={classes.mypage}
+              type="button"
+              onClick={() => {
+                window.location.assign("mypage");
+              }}
+            >
+              마이 페이지
+            </button>
+          </div>
         )}
       </Card>
       <Card className={classes.filters_fields}>
@@ -101,10 +81,10 @@ function MainPage() {
           <MainCard category={category} />
         </div>
         <WritingButton />
-        <Paging />
+        {/* <Paging /> */}
       </Card>
     </>
   );
 }
-
+/* 근데 머 해야 할가요 */
 export default MainPage;

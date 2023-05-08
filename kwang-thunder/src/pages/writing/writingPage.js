@@ -3,6 +3,7 @@ import Card from "../../ui/card";
 import Title from "../../ui/title";
 import classes from "../../css/writing.module.css";
 import axios from "axios";
+import swal from "sweetalert";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +18,7 @@ function WritingPage() {
   // // console.log(max_date);
   // // today.setDate(today.getDate() + 7); // 7일 더하여 setting
   const navigate = useNavigate();
+  let member;
   const [enteredTitle, setEnteredTitle] = useState();
   const [enteredPeople, setEnteredPeople] = useState();
   const [enteredLink, setEnteredLink] = useState();
@@ -25,7 +27,6 @@ function WritingPage() {
   const [enteredContent, setEnteredContent] = useState();
   const [enteredType, setEnteredType] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
-
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
   };
@@ -50,6 +51,12 @@ function WritingPage() {
 
   useEffect(() => {
     const dayTime = enteredDday + "-" + enteredTime;
+    member = window.localStorage.getItem("primaryKey");
+    if (!member) {
+      swal("로그인 후 사용가능합니다.");
+      navigate("/");
+      return;
+    }
     if (
       enteredTitle &&
       enteredPeople &&
@@ -79,6 +86,7 @@ function WritingPage() {
       dday: { dayTime },
       content: { enteredContent },
       type: { enteredType },
+      memberId: { member },
     };
     // await axios
     //   .post(

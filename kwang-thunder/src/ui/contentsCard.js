@@ -3,7 +3,7 @@ import classes from "../css/contentsCard.module.css";
 
 function contentsCard(props) {
   const handleCategoryChange = (event) => {
-    const clickedCategory = event.target.text;
+    const clickedCategory = event.target.innerText;
     switch (clickedCategory) {
       case "전체보기":
         props.onClick("all");
@@ -15,10 +15,10 @@ function contentsCard(props) {
         props.onClick("exercise");
         break;
       case "밥":
-        props.onClick("meal"); // food는 테스트용, 원래는 meal
+        props.onClick("food"); // food는 테스트용, 원래는 meal
         break;
       case "게임":
-        props.onClick("game"); // play는 테스트용, 원래는 game
+        props.onClick("play"); // play는 테스트용, 원래는 game
         break;
       case "문화생활":
         props.onClick("culture");
@@ -32,10 +32,8 @@ function contentsCard(props) {
   };
 
   return (
-    <div className={classes.btnFloat}>
-      <a href="#x" onClick={handleCategoryChange}>
-        {props.content}
-      </a>
+    <div className={classes.btnFloat} onClick={handleCategoryChange}>
+      {props.content}
     </div>
   );
 }

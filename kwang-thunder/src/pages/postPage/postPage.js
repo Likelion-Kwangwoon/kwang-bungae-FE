@@ -2,75 +2,141 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../../ui/card";
 import classes from "../../css/postpage.module.css";
-import swal from "sweetalert";
+import swal from "sweetalert2";
 import Title from "../../ui/title";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 function PostPage() {
+  const Token = "token";
+  const navigate = useNavigate();
   const location = useLocation();
   const [comment, setComment] = useState("");
-  const [commentArray, setCommentArray] = useState([]); //댓글이 모아진 곳들
   const [cards, setCards] = useState([]);
-  // useEffect(() => {
-  //   const postId = location.pathname.substr(6);
-  //   const getCards = async () => {
-  //     try {
-  //       const cardList = await axios
-  //         .get(
-  //           "https://1c163030-febb-40eb-ad08-95b9a0693d06.mock.pstmn.io/post/detail?postId=1",
-  //           { params: postId }
-  //         )
-  //         .then(function (response) {
-  //           setCards(response.data);
-  //         });
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   getCards();
-  // }, []);
-  const dummy = {
-    postId: 3,
-    title: "코노 ㄱ??",
-    people: 15,
-    dday: "2023-08-12-12:31",
-    type: "play",
-    link: "www.naver.com",
-    content: "코노 갈사람!!!!!!!!!!!!?",
-    profile:
-      "http://k.kakaocdn.net/dn/EqRlJ/btr4tOoF0tH/1OVKEmCFfcw6aUGeRpTDhK/img_640x640.jpg",
-    nickname: "춤추는 아기하마",
-    comments: [
-      {
-        commentId: 1,
-        content: "저 갈래요!",
-        datetime: "2023-05-07-10:11",
-        nickname: "우는 아기사자",
-      },
-      {
-        commentId: 2,
-        content: "저도 갈래요!",
-        datetime: "2023-05-07-11:11",
-        nickname: "신난 아기호랑이",
-      },
-      {
-        commentId: 3,
-        content: "저도 껴도 될까요...?!",
-        datetime: "2023-05-07-12:11",
-        nickname: "소심한 악어",
-      },
-    ],
-  };
+  const [isWriter, setIsWriter] = useState("");
+  useEffect(() => {
+    const postId = location.pathname.substr(6);
+    setIsWriter("abc");
+    const getCards = async () => {
+      try {
+        const cardList = await axios
+          .get(
+            "https://aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/post/detail?postId=2",
+            {
+              params: { params: postId },
+              headers: { Authorization: localStorage.getItem("token") },
+            }
+          )
+          .then(function (response) {
+            console.log(response.data);
+            setCards(response.data);
+            // setIsWriter(response.data.writer);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getCards();
+  }, []);
 
+  // {
+  //   "commentId": 3,
+  //   "content": "저도 껴도 될까요...?!",
+  //   "datetime": "2023-05-07-12:11",
+  //   "nickname": "소심한 악어"
+  //   "memberId" : "abc",
+  // }
+
+  // const dummy = {
+  //   postId: 3,
+  //   title: "코노 ㄱ??",
+  //   people: 15,
+  //   dday: "2023-08-12-12:31",
+  //   type: "play",
+  //   link: "www.naver.com",
+  //   content: "코노 ㄱㄱ??",
+  //   profile:
+  //     "http://k.kakaocdn.net/dn/EqRlJ/btr4tOoF0tH/1OVKEmCFfcw6aUGeRpTDhK/img_640x640.jpg",
+  //   nickname: "춤추는 아기하마",
+  //   memberId: "abc",
+  //   comments: [
+  //     {
+  //       commentId: 1,
+  //       content: "저 갈래요!",
+  //       datetime: "2023-05-07-10:11",
+  //       nickname: "우는 아기사자",
+  //     },
+  //     {
+  //       commentId: 2,
+  //       content: "저도 갈래요!",
+  //       datetime: "2023-05-07-11:11",
+  //       nickname: "신난 아기호랑이",
+  //     },
+  //     {
+  //       commentId: 3,
+  //       content: "저도 껴도 될까요...?!",
+  //       datetime: "2023-05-07-12:11",
+  //       nickname: "소심한 악어",
+  //     },
+  //   ],
+  // };
+
+  const openLinkHandler = () => {
+    navigate(`${cards.link}`);
+  };
   const onSubmit = (event) => {
-    event.preventDefault();
-    swal("댓글 수정이 불가합니다.");
     if (comment.length > 0) {
+      setComment(comment);
+      swal
+        .fire({
+          title: "댓글 수정이 불가합니다. 등록하시겠습니까?",
+          showDenyButton: true,
+          confirmButtonText: "예",
+          denyButtonText: `아니요`,
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            swal.fire("등록됐습니다!", "success!");
+            const sendData = {
+              postID: cards.postId,
+              content: comment,
+              datetime: cards.dday,
+            };
+            await axios
+              .post(
+                "https://aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/comment/crete/",
+                JSON.stringify(sendData)
+                // 댓글 작성자도 넣어줘야함!
+              )
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } else {
+            swal.fire("취소됐습니다!", "cancel!");
+          }
+        });
       return;
     } else {
-      swal("작성된 내용이 없습니다. ");
+      swal.fire("작성된 내용이 없습니다.");
     }
-    setCommentArray([...commentArray, comment]); //
-    setComment("");
+  };
+  const onRemove = (event) => {
+    event.preventDefault();
+    swal
+      .fire({
+        title: "정말 삭제하시겠습니까?",
+        showDenyButton: true,
+        confirmButtonText: "예",
+        denyButtonText: `아니요`,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          swal.fire("삭제됐습니다!", "success");
+        } else {
+          swal.fire("취소됐습니다!", "canceled");
+        }
+      });
   };
   return (
     <>
@@ -95,41 +161,86 @@ function PostPage() {
       <Card>
         <Title />
       </Card>
-      <Card>
-        <h1>{dummy.title}</h1>
-        <div>{dummy.nickname}</div>
-        <div>{dummy.dday}</div>
-        <hr />
-        <ul>
-          <li>
+      <Card className={classes.postInfo}>
+        <div className={classes.topSection}>
+          <h1 className={classes.posterTitle}>{cards.title}</h1>
+          <div className={classes.nickAndDday}>
+            <p style={{ fontWeight: "bold" }}>{cards.nickname}</p>
+            <p style={{ fontWeight: "bold" }}>{cards.dday}</p>
+          </div>
+        </div>
+        <ul className={classes.midSection}>
+          <li className={classes.bungaeField}>
             <span>번개 분야</span>
-            {dummy.type}
+            {cards.type}
           </li>
-          <li>
+          <li className={classes.bungaePeople}>
             <span>모집 인원</span>
-            {dummy.people}
+            {cards.people}
           </li>
-          <li>
+          <li className={classes.bungaeDate}>
             <span>번개 일시</span>
-            {dummy.dday}
+            {cards.dday}
           </li>
-          <li>
+          <li className={classes.bungaeContent}>
             <span>세부 내용</span>
-            {dummy.content}
+            <div className={classes.contentBox}>{cards.content}</div>
           </li>
         </ul>
+
+        {window.localStorage.getItem("primaryKey") === isWriter && (
+          <button onClick={onRemove}>삭제하기</button>
+        )}
+        {!(window.localStorage.getItem("primaryKey") === isWriter) && (
+          <button
+            onClick={() => {
+              window.location.href = `https://${cards.link}`;
+            }}
+          >
+            참가하기
+          </button>
+        )}
       </Card>
       <Card>
-        <input
-          type="text"
-          className="usercomment"
-          value={comment}
-          placeholder="쾅번개모임에 궁금한 게 있다면 댓글로 작성해주세요!"
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button type="button" onClick={onSubmit}>
-          버튼
-        </button>
+        <div className={classes.commentField}>
+          <div className={classes.writeComment}>
+            <input
+              style={{ marginRight: "0.5rem" }}
+              type="text"
+              className={classes.commentInput}
+              value={comment}
+              placeholder="쾅번개모임에 궁금한 게 있다면 댓글로 작성해주세요!"
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button type="button" onClick={onSubmit}>
+              작성하기
+            </button>
+          </div>
+
+          <ul style={{ padding: "0" }}>
+            {cards.comments &&
+              cards.comments.map((comment, index) => {
+                return (
+                  <>
+                    <div className={classes.comment}>
+                      <div className={classes.commentInfo}>
+                        <li className={classes.commentNick} key={index}>
+                          {comment.nickname}
+                        </li>
+                        <li>{comment.datetime}</li>
+                      </div>
+                      <li
+                        className={classes.commentContent}
+                        key={comment.commentId}
+                      >
+                        {comment.content}
+                      </li>
+                    </div>
+                  </>
+                );
+              })}
+          </ul>
+        </div>
       </Card>
     </>
   );
