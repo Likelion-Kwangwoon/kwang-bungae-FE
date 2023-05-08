@@ -6,7 +6,7 @@ import swal from "sweetalert2";
 import Title from "../../ui/title";
 import { useLocation, useNavigate } from "react-router-dom";
 function PostPage() {
-  const Token = "token";
+  //const Token = "token";
   const navigate = useNavigate();
   const location = useLocation();
   const [comment, setComment] = useState("");

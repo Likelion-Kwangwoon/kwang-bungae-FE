@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Paging from "../pages/paging/paging";
 import Pagination from "react-js-pagination";
+import "../css/prenext.css";
 
 function MainCard(props) {
   const [cards, setCards] = useState([]);

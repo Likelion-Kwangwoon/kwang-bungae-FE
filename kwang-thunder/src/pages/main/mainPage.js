@@ -7,13 +7,12 @@ import MainCard from "../../ui/mainCard";
 import classes from "../../css/mainPage.module.css";
 import Talk from "../../images/Talk.png";
 import WritingButton from "../../ui/writingButton";
-import Paging from "../paging/paging";
 
 function MainPage() {
   const [category, setCategory] = useState("all");
   const [isAuth, setAuth] = useState(false);
-  const REST_API_KEY = "7c749d6829ffb31f2015c71640b42eb4";
-  const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const categoryChangeHandler = (newProp) => {
     setCategory(newProp);
@@ -27,6 +26,7 @@ function MainPage() {
 
   const logoutHandler = () => {
     window.localStorage.clear();
+    window.sessionStorage.clear();
     setAuth(false);
     if (!window.Kakao.Auth.getAccessToken()) {
       console.log("Not logged in.");
@@ -81,10 +81,8 @@ function MainPage() {
           <MainCard category={category} />
         </div>
         <WritingButton />
-        {/* <Paging /> */}
       </Card>
     </>
   );
 }
-/* 근데 머 해야 할가요 */
 export default MainPage;

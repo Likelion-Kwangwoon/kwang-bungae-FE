@@ -22,7 +22,7 @@ body {
         padding: 8px 16px;
         text-decoration: none;
         transition: background-color .3s;
-        border: 40px solidrgb(82, 32, 32);
+        border: 1px solid #ddd;
         border-radius: 50%;
         margin:10px;
     }
@@ -32,8 +32,12 @@ body {
         color: red;
         font-weight: bold;
     }
-    /* .pagination a:hover:not(.active) {
-        background-color: #ecc4c49a;
-    } */
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+      }
+      
+      .pagination a:hover:not(.active) {background-color: #ddd;}
 
     

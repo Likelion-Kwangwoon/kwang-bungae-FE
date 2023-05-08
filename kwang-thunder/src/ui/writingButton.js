@@ -3,12 +3,6 @@ import styles from "../css/writingButton.module.css";
 
 function writingButton() {
   const handleScroll = () => {
-    // if (!window.scrollY) return;
-
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: "smooth",
-    // });
     window.location.replace("/writing");
   };
 

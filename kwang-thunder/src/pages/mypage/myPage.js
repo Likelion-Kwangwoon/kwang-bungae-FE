@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Title from "../../ui/title";
 import Card from "../../ui/card";
-import swal from "sweetalert2";
 import axios from "axios";
 import classes from "../../css/myPage.module.css";
 import { Link } from "react-router-dom";
