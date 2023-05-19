@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import Card from "../../ui/card";
 import Title from "../../ui/title";
@@ -13,11 +14,10 @@ function MainPage() {
   const [isAuth, setAuth] = useState(false);
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  //const KAKAO_AUTH_URL = `http://34.64.180.211:8080/oauth2/authorization/kakao?redirect_uri=${REDIRECT_URI}`;
   const categoryChangeHandler = (newProp) => {
     setCategory(newProp);
   };
-
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
       setAuth(true);
@@ -38,12 +38,24 @@ function MainPage() {
     <>
       <Card className={classes.title}>
         <Title />
-        {!isAuth && (
+        {/* {!isAuth && (
           <a className={classes.kakaologin} href={KAKAO_AUTH_URL}>
             <img src={Talk} />
             카카오 계정으로 로그인
           </a>
+        )} */}
+        {!isAuth && (
+          <a
+            id="custom-login-btn"
+            href="http://34.64.180.211:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/redirect"
+          >
+            <img
+              src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+              width="242"
+            />
+          </a>
         )}
+
         {isAuth && (
           <div className={classes.statemanage}>
             <a

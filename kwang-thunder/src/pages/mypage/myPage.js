@@ -11,12 +11,13 @@ function MyPage() {
     const getData = async () => {
       try {
         await axios
-          .get(
-            "https://aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/mypage/view/"
-          )
+          .get("http://34.64.180.211:8080/post/list/member", {
+            headers: {
+              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjgzNjI4ODQ5LCJleHAiOjE2ODM2NjQ4NDksInN1YiI6ImNoczk4NDEyQG5hdmVyLmNvbSIsIm5pY2tuYW1lIjoi7LWc7ZiB7IicIiwidWlkIjoiY2hzOTg0MTJAbmF2ZXIuY29tIiwicGxhdGZvcm0iOiJrYWthbyJ9.D9Hn0E_XiI--_EzuDmadQd_SeLTaa961ANgtgVkJHhA`,
+            },
+          })
           .then((response) => {
             console.log(response.data);
-            setMyComments(response.data.mycomment);
             setMyPosts(response.data.mypage);
           });
       } catch (e) {
