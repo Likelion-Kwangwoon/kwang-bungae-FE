@@ -51,7 +51,7 @@ function WritingPage() {
 
   useEffect(() => {
     const dayTime = enteredDday + "-" + enteredTime;
-    member = window.localStorage.getItem("primaryKey");
+    member = window.localStorage.getItem("token");
     if (!member) {
       swal("로그인 후 사용가능합니다.");
       navigate("/");

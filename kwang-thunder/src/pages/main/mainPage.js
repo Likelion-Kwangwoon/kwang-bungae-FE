@@ -6,15 +6,11 @@ import ContentsCard from "../../ui/contentsCard";
 import Search from "../../ui/search";
 import MainCard from "../../ui/mainCard";
 import classes from "../../css/mainPage.module.css";
-import Talk from "../../images/Talk.png";
 import WritingButton from "../../ui/writingButton";
 
 function MainPage() {
   const [category, setCategory] = useState("all");
   const [isAuth, setAuth] = useState(false);
-  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  //const KAKAO_AUTH_URL = `http://34.64.180.211:8080/oauth2/authorization/kakao?redirect_uri=${REDIRECT_URI}`;
   const categoryChangeHandler = (newProp) => {
     setCategory(newProp);
   };
@@ -22,6 +18,10 @@ function MainPage() {
     if (localStorage.getItem("token") != null) {
       setAuth(true);
     }
+    const code = new URL(window.location.href);
+    if (!code.href.includes("token")) return;
+    const tokenName = code.href.substring(code.href.indexOf("=") + 1);
+    localStorage.setItem("token", tokenName);
   }, []);
 
   const logoutHandler = () => {
@@ -38,12 +38,6 @@ function MainPage() {
     <>
       <Card className={classes.title}>
         <Title />
-        {/* {!isAuth && (
-          <a className={classes.kakaologin} href={KAKAO_AUTH_URL}>
-            <img src={Talk} />
-            카카오 계정으로 로그인
-          </a>
-        )} */}
         {!isAuth && (
           <a
             id="custom-login-btn"
