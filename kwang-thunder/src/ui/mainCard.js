@@ -9,7 +9,7 @@ function MainCard(props) {
   const TEMP_TOKEN = localStorage.getItem("token");
   const [cards, setCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
+  const itemsPerPage = 9;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = cards.slice(indexOfFirstItem, indexOfLastItem);
@@ -30,7 +30,6 @@ function MainCard(props) {
       }
     }
     getCards();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

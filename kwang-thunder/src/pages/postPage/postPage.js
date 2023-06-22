@@ -6,29 +6,26 @@ import swal from "sweetalert2";
 import Title from "../../ui/title";
 import { useLocation, useNavigate } from "react-router-dom";
 function PostPage() {
-  //const Token = "token";
+  const TEMP_TOKEN = localStorage.getItem("token");
   const navigate = useNavigate();
   const location = useLocation();
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(""); // 작성한 댓글
   const [cards, setCards] = useState([]);
   const [isWriter, setIsWriter] = useState("");
+  const [getComment, setGetComment] = useState(""); // 댓글 목록
   useEffect(() => {
     const postId = location.pathname.substr(6);
     setIsWriter("abc");
     const getCards = async () => {
       try {
         const cardList = await axios
-          .get(
-            "https://aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/post/detail?postId=2",
-            {
-              params: { params: postId },
-              headers: { Authorization: localStorage.getItem("token") },
-            }
-          )
+          .get("http://34.64.180.211:8080/post/detail", {
+            params: { postId },
+            headers: { Authorization: `Bearer ${TEMP_TOKEN}` },
+          })
           .then(function (response) {
             console.log(response.data);
             setCards(response.data);
-            // setIsWriter(response.data.writer);
           });
       } catch (e) {
         console.log(e);
@@ -37,47 +34,26 @@ function PostPage() {
     getCards();
   }, []);
 
-  // {
-  //   "commentId": 3,
-  //   "content": "저도 껴도 될까요...?!",
-  //   "datetime": "2023-05-07-12:11",
-  //   "nickname": "소심한 악어"
-  //   "memberId" : "abc",
-  // }
-
-  // const dummy = {
-  //   postId: 3,
-  //   title: "코노 ㄱ??",
-  //   people: 15,
-  //   dday: "2023-08-12-12:31",
-  //   type: "play",
-  //   link: "www.naver.com",
-  //   content: "코노 ㄱㄱ??",
-  //   profile:
-  //     "http://k.kakaocdn.net/dn/EqRlJ/btr4tOoF0tH/1OVKEmCFfcw6aUGeRpTDhK/img_640x640.jpg",
-  //   nickname: "춤추는 아기하마",
-  //   memberId: "abc",
-  //   comments: [
-  //     {
-  //       commentId: 1,
-  //       content: "저 갈래요!",
-  //       datetime: "2023-05-07-10:11",
-  //       nickname: "우는 아기사자",
-  //     },
-  //     {
-  //       commentId: 2,
-  //       content: "저도 갈래요!",
-  //       datetime: "2023-05-07-11:11",
-  //       nickname: "신난 아기호랑이",
-  //     },
-  //     {
-  //       commentId: 3,
-  //       content: "저도 껴도 될까요...?!",
-  //       datetime: "2023-05-07-12:11",
-  //       nickname: "소심한 악어",
-  //     },
-  //   ],
-  // };
+  useEffect(() => {
+    const postId = location.pathname.substr(6);
+    setIsWriter("abc");
+    const getComment = async () => {
+      try {
+        const cardList = await axios
+          .get("http://34.64.180.211:8080/comment/list", {
+            params: { postId },
+            headers: { Authorization: `Bearer ${TEMP_TOKEN}` },
+          })
+          .then(function (response) {
+            console.log(response.data);
+            setGetComment(response.data);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getComment();
+  }, []);
 
   const openLinkHandler = () => {
     navigate(`${cards.link}`);
@@ -101,11 +77,11 @@ function PostPage() {
               datetime: cards.dday,
             };
             await axios
-              .post(
-                "https://aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/comment/crete/",
-                JSON.stringify(sendData)
-                // 댓글 작성자도 넣어줘야함!
-              )
+              .post("http://34.64.180.211:8080/comment/create", sendData, {
+                headers: {
+                  Authorization: `Bearer ${TEMP_TOKEN}`,
+                },
+              })
               .then((response) => {
                 console.log(response);
               })
@@ -217,6 +193,7 @@ function PostPage() {
             </button>
           </div>
 
+          {/* TODO: 이 아래 cards.comments는 getComment로 코드 재구성할 것 */}
           <ul style={{ padding: "0" }}>
             {cards.comments &&
               cards.comments.map((comment, index) => {
