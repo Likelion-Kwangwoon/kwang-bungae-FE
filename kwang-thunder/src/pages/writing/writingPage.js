@@ -8,17 +8,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
 function WritingPage() {
-  // let days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  // let today = new Date();
-  // let year = today.getFullYear();
-  // let month = today.getMonth() + 1; // 월
-  // let date = today.getDate(); // 날짜
-  // // let day = new Array("일", "월", "화", "수", "목", "금", "토");
-  // // var max_date = (new Date().getDay() + 3) % 7;
-  // // console.log(max_date);
-  // // today.setDate(today.getDate() + 7); // 7일 더하여 setting
   const navigate = useNavigate();
   let member;
+  const TEMP_TOKEN = localStorage.getItem("token");
   const [enteredTitle, setEnteredTitle] = useState();
   const [enteredPeople, setEnteredPeople] = useState();
   const [enteredLink, setEnteredLink] = useState();
@@ -51,7 +43,7 @@ function WritingPage() {
 
   useEffect(() => {
     const dayTime = enteredDday + "-" + enteredTime;
-    member = window.localStorage.getItem("primaryKey");
+    member = window.localStorage.getItem("token");
     if (!member) {
       swal("로그인 후 사용가능합니다.");
       navigate("/");
@@ -80,25 +72,26 @@ function WritingPage() {
     event.preventDefault();
     const dayTime = enteredDday + "-" + enteredTime;
     const sendData = {
-      title: { enteredTitle },
-      people: { enteredPeople },
-      link: { enteredLink },
-      dday: { dayTime },
-      content: { enteredContent },
-      type: { enteredType },
-      memberId: { member },
+      title: enteredTitle,
+      people: enteredPeople,
+      link: enteredLink,
+      content: enteredContent,
+      //dday: { dayTime },
+      // type: { enteredType },
+      // memberId: { member },
     };
-    // await axios
-    //   .post(
-    //     "https://1c163030-febb-40eb-ad08-95b9a0693d06.mock.pstmn.io/post/create/",
-    //     JSON.stringify(sendData)
-    //   )
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    await axios
+      .post("http://34.64.180.211:8080/post/create", sendData, {
+        headers: {
+          Authorization: `Bearer ${TEMP_TOKEN}`,
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     navigate("/");
   };
 

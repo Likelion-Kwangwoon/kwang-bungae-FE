@@ -6,53 +6,36 @@ import Pagination from "react-js-pagination";
 import "../css/prenext.css";
 
 function MainCard(props) {
+  const TEMP_TOKEN = localStorage.getItem("token");
   const [cards, setCards] = useState([]);
-  const [filteredCards, setFilteredCards] = useState([]);
-  const [idxNumber, setIdxnumber] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(1);
+  const itemsPerPage = 9;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = cards.slice(indexOfFirstItem, indexOfLastItem);
   useEffect(() => {
-    const getCards = async () => {
+    async function getCards() {
       try {
-        const cardList = await axios
-          .get(
-            "https://aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/post/list/"
-          )
+        await axios
+          .get("http://34.64.180.211:8080/post/list", {
+            headers: {
+              Authorization: `Bearer ${TEMP_TOKEN}`,
+            },
+          })
           .then(function (response) {
             setCards(response.data);
           });
       } catch (e) {
         console.log(e);
       }
-    };
+    }
     getCards();
   }, []);
 
-  const renderCards = () => {
-    return currentItems.map((card) => {
-      return (
-        <div key={card.postId}>
-          <h2>{card.title}</h2>
-          <p>{card.people}</p>
-          <p>{card.dday}</p>
-          <p>{card.type}</p>
-          <p>{card.content}</p>
-        </div>
-      );
-    });
-  };
-
-  // const idxChangeHandler = (idx) => {
-  //   setIdxnumber(idx);
-  // };
-
   return (
     <>
-      {/*{cards &&
-        cards
+      {currentItems &&
+        currentItems
           .filter(
             (item) => props.category === "all" || item.type === props.category
           )
@@ -75,7 +58,6 @@ function MainCard(props) {
                   key={card.postId}
                 >
                   <Card.Body>
-                    <img src={`{card.trasitional.url}`} />
                     <Card.Title style={{ color: "black", fontWeight: "bold" }}>
                       {card.title}
                     </Card.Title>
@@ -100,8 +82,7 @@ function MainCard(props) {
                 </Card>
               </Link>
             );
-          })} */}
-      {renderCards()}
+          })}
       <Pagination
         activePage={currentPage}
         pageRangeDisplayed={5}

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 import Card from "../../ui/card";
 import Title from "../../ui/title";
@@ -5,23 +6,24 @@ import ContentsCard from "../../ui/contentsCard";
 import Search from "../../ui/search";
 import MainCard from "../../ui/mainCard";
 import classes from "../../css/mainPage.module.css";
-import Talk from "../../images/Talk.png";
 import WritingButton from "../../ui/writingButton";
 
 function MainPage() {
+  // 로그인 후 첫 게시글을 누르면 주소가 rediect/post/postId 이런식으로 진행됨.. (첫번째로 누르는 게시글만)
   const [category, setCategory] = useState("all");
   const [isAuth, setAuth] = useState(false);
-  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const categoryChangeHandler = (newProp) => {
     setCategory(newProp);
   };
-
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
       setAuth(true);
     }
+    const code = new URL(window.location.href);
+    if (!code.href.includes("token")) return;
+    const tokenName = code.href.substring(code.href.indexOf("=") + 1);
+    localStorage.setItem("token", tokenName);
+    window.history.pushState(null, null, "/");
   }, []);
 
   const logoutHandler = () => {
@@ -39,11 +41,17 @@ function MainPage() {
       <Card className={classes.title}>
         <Title />
         {!isAuth && (
-          <a className={classes.kakaologin} href={KAKAO_AUTH_URL}>
-            <img src={Talk} />
-            카카오 계정으로 로그인
+          <a
+            id="custom-login-btn"
+            href="http://34.64.180.211:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/redirect"
+          >
+            <img
+              src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+              width="242"
+            />
           </a>
         )}
+
         {isAuth && (
           <div className={classes.statemanage}>
             <a
@@ -77,6 +85,7 @@ function MainPage() {
       </Card>
       <Card className={classes.contents_fields}>
         <div className={classes.contents_search}></div>
+        {/* TODO : 서치 구현하기 */}
         <div className={classes.contents}>
           <MainCard category={category} />
         </div>

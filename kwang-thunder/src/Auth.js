@@ -28,7 +28,12 @@ const Auth = () => {
         axios
           .get(
             "https:aae6c754-9791-46c8-a805-4d38ac740450.mock.pstmn.io/user/auth?code=ABFASDASDASD",
-            { code: { code } }
+            {
+              headers: {
+                Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjgzNjI4ODQ5LCJleHAiOjE2ODM2NjQ4NDksInN1YiI6ImNoczk4NDEyQG5hdmVyLmNvbSIsIm5pY2tuYW1lIjoi7LWc7ZiB7IicIiwidWlkIjoiY2hzOTg0MTJAbmF2ZXIuY29tIiwicGxhdGZvcm0iOiJrYWthbyJ9.D9Hn0E_XiI--_EzuDmadQd_SeLTaa961ANgtgVkJHhA`,
+              },
+              code: { code },
+            }
           )
           .then((response) => {
             window.localStorage.setItem("token", response.data.token.access);
@@ -37,7 +42,7 @@ const Auth = () => {
               response.data.user.nickname
             );
             window.localStorage.setItem("primaryKey", "abc");
-            navigate(`/`);
+            window.location.replace("/");
           })
           .catch((error) => {
             console.error(error);
