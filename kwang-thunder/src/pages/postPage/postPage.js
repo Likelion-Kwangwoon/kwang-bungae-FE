@@ -13,6 +13,8 @@ function PostPage() {
   const [cards, setCards] = useState([]);
   const [isWriter, setIsWriter] = useState("");
   const [getComment, setGetComment] = useState(""); // 댓글 목록
+  const [timer, setTimer] = useState("");
+  // TODO : 백엔드에서 댓글 작성시에 시간을 저장하고, 댓글 호출시에 시간도 주세용.
   useEffect(() => {
     const postId = location.pathname.substr(6);
     setIsWriter("abc");
@@ -24,7 +26,6 @@ function PostPage() {
             headers: { Authorization: `Bearer ${TEMP_TOKEN}` },
           })
           .then(function (response) {
-            console.log(response.data);
             setCards(response.data);
           });
       } catch (e) {
@@ -45,7 +46,6 @@ function PostPage() {
             headers: { Authorization: `Bearer ${TEMP_TOKEN}` },
           })
           .then(function (response) {
-            console.log(response.data);
             setGetComment(response.data);
           });
       } catch (e) {
@@ -72,9 +72,9 @@ function PostPage() {
           if (result.isConfirmed) {
             swal.fire("등록됐습니다!", "success!");
             const sendData = {
-              postID: cards.postId,
+              postId: cards.postId,
+              memberId: "",
               content: comment,
-              datetime: cards.dday,
             };
             await axios
               .post("http://34.64.180.211:8080/comment/create", sendData, {
@@ -84,6 +84,7 @@ function PostPage() {
               })
               .then((response) => {
                 console.log(response);
+                window.location.reload();
               })
               .catch((error) => {
                 console.log(error);
@@ -193,24 +194,20 @@ function PostPage() {
             </button>
           </div>
 
-          {/* TODO: 이 아래 cards.comments는 getComment로 코드 재구성할 것 */}
           <ul style={{ padding: "0" }}>
-            {cards.comments &&
-              cards.comments.map((comment, index) => {
+            {getComment &&
+              getComment.map((comment, index) => {
                 return (
                   <>
-                    <div className={classes.comment}>
+                    <div className={classes.comment} key={getComment.commentId}>
                       <div className={classes.commentInfo}>
                         <li className={classes.commentNick} key={index}>
-                          {comment.nickname}
+                          {getComment[index].memberId}
                         </li>
-                        <li>{comment.datetime}</li>
+                        <li>{"DATETIME"}</li>
                       </div>
-                      <li
-                        className={classes.commentContent}
-                        key={comment.commentId}
-                      >
-                        {comment.content}
+                      <li className={classes.commentContent}>
+                        {getComment[index].content}
                       </li>
                     </div>
                   </>

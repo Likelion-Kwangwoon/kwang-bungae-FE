@@ -16,6 +16,7 @@ function App() {
           <Route path="/oauth/kakao/callback" element={<Auth />} />
           <Route path="mypage" element={<MyPage />} />
           <Route path="post/:postId" element={<PostPage />} />
+          <Route path="/main" element={<MainPage />} />
           <Route path="/redirect" element={<MainPage />} />
         </Routes>
       </div>

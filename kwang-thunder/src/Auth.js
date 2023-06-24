@@ -8,7 +8,6 @@ const Auth = () => {
   const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 
-  console.log("aaa");
   const code = new URL(window.location.href).searchParams.get("code");
   const getToken = async () => {
     const payload = qs.stringify({
@@ -43,7 +42,7 @@ const Auth = () => {
               response.data.user.nickname
             );
             window.localStorage.setItem("primaryKey", "abc");
-            navigate(`/`);
+            window.location.replace("/");
           })
           .catch((error) => {
             console.error(error);

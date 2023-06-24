@@ -75,8 +75,8 @@ function WritingPage() {
       title: enteredTitle,
       people: enteredPeople,
       link: enteredLink,
-      //dday: { dayTime },
       content: enteredContent,
+      //dday: { dayTime },
       // type: { enteredType },
       // memberId: { member },
     };

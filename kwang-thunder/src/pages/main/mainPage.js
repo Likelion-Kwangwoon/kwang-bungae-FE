@@ -9,6 +9,7 @@ import classes from "../../css/mainPage.module.css";
 import WritingButton from "../../ui/writingButton";
 
 function MainPage() {
+  // 로그인 후 첫 게시글을 누르면 주소가 rediect/post/postId 이런식으로 진행됨.. (첫번째로 누르는 게시글만)
   const [category, setCategory] = useState("all");
   const [isAuth, setAuth] = useState(false);
   const categoryChangeHandler = (newProp) => {
@@ -22,6 +23,7 @@ function MainPage() {
     if (!code.href.includes("token")) return;
     const tokenName = code.href.substring(code.href.indexOf("=") + 1);
     localStorage.setItem("token", tokenName);
+    window.history.pushState(null, null, "/");
   }, []);
 
   const logoutHandler = () => {
@@ -83,6 +85,7 @@ function MainPage() {
       </Card>
       <Card className={classes.contents_fields}>
         <div className={classes.contents_search}></div>
+        {/* TODO : 서치 구현하기 */}
         <div className={classes.contents}>
           <MainCard category={category} />
         </div>

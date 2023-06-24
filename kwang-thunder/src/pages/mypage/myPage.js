@@ -5,6 +5,7 @@ import axios from "axios";
 import classes from "../../css/myPage.module.css";
 import { Link } from "react-router-dom";
 function MyPage() {
+  // TODO : 백엔드에서 내가 작성한 댓글 호출시에 해당 게시글의 링크도 주세요.
   const TEMP_TOKEN = localStorage.getItem("token");
   const [myComments, setMyComments] = useState([]);
   const [myPosts, setMyPosts] = useState([]);
